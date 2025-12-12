@@ -45,7 +45,7 @@ public class StringStreamsKata {
             "#dam,#java",
             "#streams,#JAVA,#java",
             "",
-            "#fp,#dam,#java"
+            "#fp,#dam,#java"	
     );
 
     /**
@@ -69,7 +69,10 @@ public class StringStreamsKata {
      * - El resultado debe estar ordenado (A→Z).
      */
     public List<String> paisesQueTerminanEnAOrdenados() {
-        throw new UnsupportedOperationException("TODO");
+    return paises.stream()
+    .filter(p -> p.endsWith("a"))
+    .sorted()
+    .toList();
     }
 
     /**
@@ -80,8 +83,12 @@ public class StringStreamsKata {
      * - ordenados alfabéticamente
      */
     public List<String> paisesMinusculasUnicosOrdenados() {
-        throw new UnsupportedOperationException("TODO");
-    }
+        return paises.stream()
+       .map(p -> p.toLowerCase())
+       .distinct()
+        		.sorted()
+        		.toList();   
+        }
 
     /**
      * NIVEL 4 (3-4 pasos intermedios)
@@ -98,7 +105,12 @@ public class StringStreamsKata {
      * - Mantén el orden de primera aparición tras normalizar.
      */
     public List<String> usuariosNormalizadosSinRepetir() {
-        throw new UnsupportedOperationException("TODO");
+        return usuarios.stream()
+        		
+        		.map(u -> u.trim().toLowerCase())
+        		 .distinct() //elimina duplicados		
+        		 .sorted()
+                  .toList();
     }
 
     /**
@@ -118,7 +130,12 @@ public class StringStreamsKata {
      * - Aquí NO hace falta split ni flatMap: ya trabajas con palabras sueltas.
      */
     public List<String> hashtagsUnicosOrdenados() {
-        throw new UnsupportedOperationException("TODO");
+    	return tokens.stream()
+    			.filter( t -> t.startsWith("#"))
+    			.map(p -> p .trim().toLowerCase())
+    			.distinct()
+    			.toList();
+    			
     }
 
     /**
