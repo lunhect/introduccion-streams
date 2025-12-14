@@ -131,10 +131,11 @@ public class StringStreamsKata {
      */
     public List<String> hashtagsUnicosOrdenados() {
     	return tokens.stream()
-    			.filter( t -> t.startsWith("#"))
-    			.map(p -> p .trim().toLowerCase())
+    		.map(p -> p.trim().toLowerCase())	
+            .filter( t -> t.startsWith("#"))
     			.distinct()
-    			.toList();
+                 .sorted()
+    			  .toList();
     			
     }
 
@@ -145,10 +146,15 @@ public class StringStreamsKata {
      * Requisitos:
      * - Antes de contar letras, convierte el país a minúsculas.
      * - Cuenta letras con length().
-     * - Convierte a IntStream con mapToInt(...) y termina con sum().
+     * - Convierte a IntStream con mapToInt(...) 
+      y termina con sum().
      */
     public int sumaLetrasPaisesEnA() {
-        throw new UnsupportedOperationException("TODO");
+       return paises.stream()
+           .map(p -> p.toLowerCase()) //pasar cada pais a minsculas
+           .filter(p -> p.endsWith("a")) //quedarse con los que terminan en a
+           .mapToInt( p -> p.length()) //Convertir el stream a int
+           .sum()
     }
 
     /**
@@ -162,7 +168,18 @@ public class StringStreamsKata {
      * - Si no hay hashtags, devuelve 0.0.
      */
     public double mediaLongitudHashtagsUnicos() {
-        throw new UnsupportedOperationException("TODO");
+       return tokens.stream() //recorro la lista tokens
+           .map ( t -> t.trim().toLowerCase()) //quito espacios y todo en minusculas
+           .filter(t -> t.starsWith("#"))
+           .distinct() //quitamos los repetidos
+           .maptoInt(String::length)
+           //cambia cada hastag por el numero de letras que tiene
+           
+           .average() //calcula la media
+           .orElse(0.0)
+           
+           
+                 
     }
 
     /**
